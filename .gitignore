@@ -1,21 +1,13 @@
-# Dependencies
-node_modules
-.pnp
-.pnp.js
+# OS Files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
 
-# Production build
-dist
-dist-ssr
-*.local
-
-# Environment variables
-.env
-.env.local
-.env.*.local
-
-# IDE
+# IDE - Generic (applies to all projects)
 .vscode/*
 !.vscode/extensions.json
+!.vscode/settings.json
 .idea
 *.suo
 *.ntvs*
@@ -23,23 +15,13 @@ dist-ssr
 *.sln
 *.sw?
 
-# OS
-.DS_Store
-Thumbs.db
-
-# Logs
+# Logs - Generic
+*.log
 npm-debug.log*
 yarn-debug.log*
-yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# Testing
-coverage
-*.lcov
-.nyc_output
-
-# Cache
-.cache
-.parcel-cache
-.vite
+# Environment files - Generic
+.env.local
+.env.*.local

@@ -11,8 +11,17 @@ trim_trailing_whitespace = true
 [*.md]
 trim_trailing_whitespace = false
 
+# Frontend (JavaScript, Vue, TypeScript)
+[*.{js,jsx,ts,tsx,vue,json}]
+indent_size = 2
+
+# YAML files
 [*.{yml,yaml}]
 indent_size = 2
 
 [compose.yaml]
+indent_size = 4
+
+# PHP (Laravel)
+[*.php]
 indent_size = 4

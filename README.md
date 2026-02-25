@@ -1,4 +1,4 @@
-# Microserviço de Gestão de Pedidos
+# Gestão de Pedidos
 
 <p align="center">
   <img src="https://img.shields.io/badge/Laravel-12-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel 12">
@@ -11,7 +11,7 @@
 
 Microserviço RESTful para gestão de pedidos de viagem (Laravel 12, JWT, Docker, MySQL). Permite CRUD de pedidos, autenticação, roles, notificações assíncronas e fila, com testes automatizados e arquitetura em camadas.
 
-**💡 Inclui frontend Vue 3 totalmente integrado** — Interface moderna com formulário de criação, dashboard com filtros, gestão de status e autenticação JWT.
+Frontend Vue 3 totalmente integrado** — Interface moderna com formulário de criação, dashboard com filtros, gestão de status e autenticação JWT.
 
 ## Instalação Completa (Backend + Frontend)
 

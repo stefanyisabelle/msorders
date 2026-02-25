@@ -1,0 +1,120 @@
+services:
+  # App Vue.js (Frontend)
+  frontend:
+    build:
+      context: ./mfe-orders
+      dockerfile: Dockerfile
+    container_name: mfe_orders_frontend
+    restart: unless-stopped
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./mfe-orders:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:8000/api
+    networks:
+      - orders_net
+    command: npm run dev -- --host 0.0.0.0
+
+  # Rest Api Laravel
+  app:
+    build:
+      context: ./ms-orders
+      dockerfile: Dockerfile
+    container_name: msorders
+    restart: unless-stopped
+    working_dir: /var/www
+    env_file:
+      - ./ms-orders/.env
+    volumes:
+      - ./ms-orders:/var/www
+      - ./ms-orders/docker/php/custom.ini:/usr/local/etc/php/conf.d/custom.ini
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_DATABASE=${DB_DATABASE:-msorders}
+      - DB_USERNAME=${DB_USERNAME:-root}
+      - DB_PASSWORD=${DB_PASSWORD:-root}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - orders_net
+    healthcheck:
+      test: ["CMD", "php", "-v"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+
+  # Queue Worker
+  worker:
+    build:
+      context: ./ms-orders
+      dockerfile: Dockerfile
+    container_name: msorders_worker
+    restart: unless-stopped
+    working_dir: /var/www
+    env_file:
+      - ./ms-orders/.env
+    volumes:
+      - ./ms-orders:/var/www
+      - ./ms-orders/docker/php/custom.ini:/usr/local/etc/php/conf.d/custom.ini
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_DATABASE=${DB_DATABASE:-msorders}
+      - DB_USERNAME=${DB_USERNAME:-root}
+      - DB_PASSWORD=${DB_PASSWORD:-root}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - orders_net
+    command: php artisan queue:work database --queue=notifications,default --tries=3 --timeout=30 --sleep=3
+
+  # Nginx
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: msorders_nginx
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-8000}:80"
+    volumes:
+      - ./ms-orders:/var/www
+      - ./ms-orders/docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./ms-orders/storage/logs/nginx:/var/log/nginx
+    depends_on:
+      - app
+    networks:
+      - orders_net
+
+  # MySQL
+  db:
+    image: mysql:8.0
+    container_name: msorders_db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE:-msorders}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-root}
+      MYSQL_ALLOW_EMPTY_PASSWORD: "no"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./ms-orders/docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+    networks:
+      - orders_net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u${DB_USERNAME:-root}", "-p${DB_PASSWORD:-root}"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    ports:
+    - "3306:3306"
+
+networks:
+  orders_net:
+    driver: bridge
+
+volumes:
+  db_data:
+    driver: local

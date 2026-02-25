@@ -1,0 +1,102 @@
+{
+  "form": {
+    "customerName": "Customer Name *",
+    "destination": "Destination *",
+    "departureDate": "Departure Date *",
+    "returnDate": "Return Date *",
+    "customerNamePlaceholder": "Enter full name",
+    "destinationPlaceholder": "Enter travel destination",
+    "submitting": "Submitting...",
+    "createOrder": "+ Create Order",
+    "clear": "Clear"
+  },
+  "validation": {
+    "nameRequired": "Name is required",
+    "destinationRequired": "Destination is required",
+    "departureDateRequired": "Departure date is required",
+    "returnDateRequired": "Return date is required",
+    "returnDateAfterDeparture": "Return date must be after departure date",
+    "customerNameMaxLength": "Customer name may not be greater than 255 characters",
+    "destinationMaxLength": "Destination may not be greater than 255 characters",
+    "departureDateValid": "Departure date must be a valid date",
+    "departureDateNotPast": "Departure date cannot be before today",
+    "returnDateValid": "Return date must be a valid date",
+    "returnDateAfterDepartureDate": "Return date must be after or equal to departure date"
+  },
+  "table": {
+    "loading": "Loading...",
+    "id": "ID",
+    "customer": "Customer",
+    "destination": "Destination",
+    "departureDate": "Departure",
+    "returnDate": "Return",
+    "status": "Status",
+    "actions": "Actions",
+    "filterDestination": "Filter destination...",
+    "noResults": "No orders found",
+    "orderActions": "Order Actions",
+    "viewDetails": "View Details"
+  },
+  "actions": {
+    "approve": "Approve",
+    "cancel": "Cancel",
+    "processing": "Processing...",
+    "logout": "Logout",
+    "loggingOut": "Logging out...",
+    "confirmCancel": "Yes, Cancel",
+    "no": "No",
+    "apply": "Apply"
+  },
+  "status": {
+    "pending": "Pending",
+    "confirmed": "Confirmed",
+    "cancelled": "Cancelled"
+  },
+  "dashboard": {
+    "title": "Travel Summary",
+    "pending": "Pending",
+    "confirmed": "Confirmed",
+    "cancelled": "Cancelled",
+    "total": "Total",
+    "newOrder": "New Order",
+    "ordersList": "Orders List",
+    "loadingOrders": "Loading orders..."
+  },
+  "auth": {
+    "appTitle": "Travel Management System",
+    "email": "Email",
+    "password": "Password",
+    "emailPlaceholder": "your@email.com",
+    "passwordPlaceholder": "••••••••",
+    "login": "Login",
+    "loggingIn": "Logging in...",
+    "invalidCredentials": "Invalid username or password.",
+    "loginError": "Error trying to login. Please try again."
+  },
+  "messages": {
+    "orderCreated": "Order created successfully!",
+    "orderUpdated": "Order {status} successfully!",
+    "orderApproved": "approved",
+    "orderCancelled": "cancelled",
+    "createOrderError": "Error creating order",
+    "fetchOrdersError": "Failed to fetch orders",
+    "updateStatusError": "Failed to update status",
+    "orderNotFound": "Order not found",
+    "cannotCancelApproved": "Cannot cancel an approved order",
+    "onlyPendingCanBeApproved": "Only pending orders can be approved"
+  },
+  "errors": {
+    "network": "Could not connect to server. Please contact the administrator.",
+    "timeout": "Server took too long to respond. Please try again later.",
+    "server": "Internal server error. Please contact the administrator.",
+    "unexpected": "An unexpected error occurred.",
+    "unauthorized": "You are not authorized to update the status of this order.",
+    "unauthorizedView": "You are not authorized to view this order.",
+    "confirmedCannotBeCancelled": "A confirmed order cannot be cancelled.",
+    "departureDateAfterReturn": "Departure date cannot be after return date."
+  },
+  "modal": {
+    "cancelOrderTitle": "Confirm Cancellation",
+    "cancelOrderMessage": "Are you sure you want to cancel order #{id}?"
+  }
+}

@@ -1,0 +1,232 @@
+/* Global Styles */
+:root {
+  --app-max-width: 1400px;
+  --app-padding: 1rem;
+  --app-border-radius: 8px;
+  --app-transition: all 0.3s ease;
+  
+  /* Custom Brand Colors */
+  --brand-primary: #667eea;
+  --brand-secondary: #764ba2;
+  --brand-gradient: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-secondary) 100%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--p-surface-ground);
+}
+
+#app {
+  min-height: 100vh;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--p-surface-100);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--p-surface-400);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--p-surface-500);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+/* Card Enhancements */
+.p-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: var(--app-transition);
+}
+
+.p-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.p-card-title {
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.p-card-content {
+  padding: 1.5rem;
+}
+
+/* Button Enhancements */
+.p-button {
+  font-weight: 500;
+  transition: var(--app-transition);
+}
+
+.p-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.p-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* DataTable Enhancements */
+.p-datatable .p-datatable-header {
+  background: var(--p-surface-0);
+  border: none;
+  padding: 1rem;
+}
+
+.p-datatable .p-datatable-thead > tr > th {
+  background: var(--p-surface-100);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  letter-spacing: 0.5px;
+}
+
+.p-datatable .p-datatable-tbody > tr {
+  transition: var(--app-transition);
+}
+
+.p-datatable .p-datatable-tbody > tr:hover {
+  background: var(--p-surface-100) !important;
+}
+
+/* Form Enhancements */
+.p-float-label label {
+  font-weight: 500;
+}
+
+.p-inputtext:focus,
+.p-calendar:focus-within {
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+}
+
+/* Menubar Enhancements */
+.p-menubar {
+  border-radius: 0;
+  border: none;
+  border-bottom: 1px solid var(--p-surface-200);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Toast Enhancements */
+.p-toast {
+  opacity: 0.98;
+}
+
+.p-toast .p-toast-message {
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Loading States */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.loading-pulse {
+  animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Responsive Utilities */
+@media (max-width: 768px) {
+  :root {
+    --app-padding: 0.5rem;
+  }
+  
+  .p-card-content {
+    padding: 1rem;
+  }
+  
+  .p-datatable .p-datatable-thead > tr > th {
+    font-size: 0.75rem;
+  }
+}
+
+/* Accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Focus Visible */
+*:focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 2px;
+}
+
+/* Transition Group */
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.3s ease;
+}
+
+.list-enter-from {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}

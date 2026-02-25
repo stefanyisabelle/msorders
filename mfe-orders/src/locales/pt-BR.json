@@ -1,0 +1,102 @@
+{
+  "form": {
+    "customerName": "Nome do Solicitante *",
+    "destination": "Destino *",
+    "departureDate": "Data de Ida *",
+    "returnDate": "Data de Volta *",
+    "customerNamePlaceholder": "Digite o nome completo",
+    "destinationPlaceholder": "Digite o destino da viagem",
+    "submitting": "Enviando...",
+    "createOrder": "+ Criar Pedido",
+    "clear": "Limpar"
+  },
+  "validation": {
+    "nameRequired": "Nome é obrigatório",
+    "destinationRequired": "Destino é obrigatório",
+    "departureDateRequired": "Data de ida é obrigatória",
+    "returnDateRequired": "Data de volta é obrigatória",
+    "returnDateAfterDeparture": "A data de volta deve ser posterior à data de ida",
+    "customerNameMaxLength": "O nome do solicitante não pode ter mais de 255 caracteres",
+    "destinationMaxLength": "O destino não pode ter mais de 255 caracteres",
+    "departureDateValid": "A data de ida deve ser uma data válida",
+    "departureDateNotPast": "A data de ida não pode ser anterior a hoje",
+    "returnDateValid": "A data de volta deve ser uma data válida",
+    "returnDateAfterDepartureDate": "A data de volta deve ser igual ou posterior à data de ida"
+  },
+  "table": {
+    "loading": "Carregando...",
+    "id": "ID",
+    "customer": "Solicitante",
+    "destination": "Destino",
+    "departureDate": "Data Ida",
+    "returnDate": "Data Volta",
+    "status": "Status",
+    "actions": "Ações",
+    "filterDestination": "Filtrar destino...",
+    "noResults": "Nenhum pedido encontrado",
+    "orderActions": "Ações do Pedido",
+    "viewDetails": "Visualizar Detalhes"
+  },
+  "actions": {
+    "approve": "Aprovar",
+    "cancel": "Cancelar",
+    "processing": "Processando...",
+    "logout": "Sair",
+    "loggingOut": "Saindo...",
+    "confirmCancel": "Sim, Cancelar",
+    "no": "Não",
+    "apply": "Aplicar"
+  },
+  "status": {
+    "pending": "Solicitado",
+    "confirmed": "Aprovado",
+    "cancelled": "Cancelado"
+  },
+  "dashboard": {
+    "title": "Resumo das Viagens",
+    "pending": "Solicitados",
+    "confirmed": "Aprovados",
+    "cancelled": "Cancelados",
+    "total": "Total",
+    "newOrder": "Novo Pedido",
+    "ordersList": "Lista de Pedidos",
+    "loadingOrders": "Carregando pedidos..."
+  },
+  "auth": {
+    "appTitle": "Sistema de Viagens",
+    "email": "E-mail",
+    "password": "Senha",
+    "emailPlaceholder": "seu@email.com",
+    "passwordPlaceholder": "••••••••",
+    "login": "Entrar",
+    "loggingIn": "Entrando...",
+    "invalidCredentials": "Usuário ou senha inválidos.",
+    "loginError": "Erro ao tentar fazer login. Tente novamente."
+  },
+  "messages": {
+    "orderCreated": "Pedido criado com sucesso!",
+    "orderUpdated": "Pedido {status} com sucesso!",
+    "orderApproved": "aprovado",
+    "orderCancelled": "cancelado",
+    "createOrderError": "Erro ao criar pedido",
+    "fetchOrdersError": "Falha ao buscar pedidos",
+    "updateStatusError": "Falha ao atualizar status",
+    "orderNotFound": "Pedido não encontrado",
+    "cannotCancelApproved": "Não é possível cancelar um pedido já aprovado",
+    "onlyPendingCanBeApproved": "Apenas pedidos solicitados podem ser aprovados"
+  },
+  "errors": {
+    "network": "Não foi possível conectar ao servidor. Entre em contato com o administrador.",
+    "timeout": "O servidor demorou muito para responder. Tente novamente mais tarde.",
+    "server": "Erro interno do servidor. Entre em contato com o administrador.",
+    "unexpected": "Ocorreu um erro inesperado.",
+    "unauthorized": "Você não tem permissão para atualizar o status deste pedido.",
+    "unauthorizedView": "Você não tem permissão para visualizar este pedido.",
+    "confirmedCannotBeCancelled": "Um pedido aprovado não pode ser cancelado.",
+    "departureDateAfterReturn": "A data de ida não pode ser posterior à data de volta."
+  },
+  "modal": {
+    "cancelOrderTitle": "Confirmar Cancelamento",
+    "cancelOrderMessage": "Tem certeza que deseja cancelar o pedido #{id}?"
+  }
+}

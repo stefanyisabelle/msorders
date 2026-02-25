@@ -1,40 +1,83 @@
-# Gestão de Pedidos
+# Gestão de Pedidos (Monorepo)
 
 <p align="center">
   <img src="https://img.shields.io/badge/Laravel-12-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel 12">
   <img src="https://img.shields.io/badge/PHP-8.5-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP 8.5">
+  <img src="https://img.shields.io/badge/Vue-3-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white" alt="Vue 3">
   <img src="https://img.shields.io/badge/MySQL-8.0-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL 8.0">
   <img src="https://img.shields.io/badge/Docker-Latest-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker">
 </p>
 
-## Sobre
+## 📁 Sobre o Monorepo
 
-Microserviço RESTful para gestão de pedidos de viagem (Laravel 12, JWT, Docker, MySQL). Permite CRUD de pedidos, autenticação, roles, notificações assíncronas e fila, com testes automatizados e arquitetura em camadas.
+Este é um monorepo completo para gestão de pedidos de viagem, contendo:
 
-Frontend Vue 3 totalmente integrado** — Interface moderna com formulário de criação, dashboard com filtros, gestão de status e autenticação JWT.
+- **`ms-orders/`** — Microserviço RESTful backend (Laravel 12, JWT, Docker, MySQL)
+  - CRUD de pedidos com autenticação e autorização (roles)
+  - Notificações assíncronas via fila
+  - Testes automatizados e arquitetura em camadas
+  
+- **`mfe-orders/`** — Frontend web (Vue 3, Vite, Pinia)
+  - Interface moderna com formulário de criação
+  - Dashboard com filtros e gestão de status
+  - Autenticação JWT integrada com backend
 
-## Instalação Completa (Backend + Frontend)
+## 📂 Estrutura do Monorepo
+
+```
+Project/
+├── docker-compose.yml          # Orquestra todos os containers
+├── .gitignore                  # Regras globais do monorepo
+├── .editorconfig               # Configurações do editor
+├── README.md                   # Documentação geral
+├── ms-orders/                  # Backend Laravel
+│   ├── app/                    # Código da aplicação
+│   ├── config/                 # Configurações
+│   ├── database/               # Migrations, seeds, factories
+│   ├── routes/                 # Rotas da API
+│   ├── tests/                  # Testes automatizados
+│   ├── docker/                 # Configs Docker (nginx, php, mysql)
+│   ├── Dockerfile              # Build do backend
+│   ├── composer.json           # Dependências PHP
+│   ├── .env.example            # Template de variáveis
+│   └── ...
+└── mfe-orders/                 # Frontend Vue
+    ├── src/                    # Código Vue
+    ├── public/                 # Arquivos estáticos
+    ├── Dockerfile              # Build do frontend
+    ├── package.json            # Dependências Node
+    ├── vite.config.js          # Configuração Vite
+    ├── .env.example            # Template de variáveis
+    └── ...
+```
+
+## 🚀 Instalação Completa (Backend + Frontend)
 
 ### Opção 1: Usando Docker Compose (Recomendado)
 
 O Docker Compose sobe automaticamente **backend + frontend + banco de dados + worker de fila** em um único comando:
 
 ```bash
-# 1. Instale dependências PHP do backend
+# 1. Clone o repositório e entre no diretório
+cd Project
+
+# 2. Instale dependências PHP do backend
+cd ms-orders
 composer install
+cd ..
 
-# 2. Copie e edite o .env do backend
-cp .env.example .env
-# Configure variáveis se necessário (DB, JWT, etc)
+# 3. Configure o .env do backend
+cp ms-orders/.env.example ms-orders/.env
+# Edite ms-orders/.env se necessário (DB, JWT, etc)
 
-# 3. Copie e edite o .env do frontend
+# 4. Configure o .env do frontend
 cp mfe-orders/.env.example mfe-orders/.env
 # Padrão: VITE_API_URL=http://localhost:8000/api
 
-# 4. Suba todos os containers (backend + frontend + db + worker)
+# 5. Suba todos os containers (backend + frontend + db + worker)
 docker-compose up -d --build
 
-# 5. Configure a aplicação Laravel (dentro do container)
+# 6. Configure a aplicação Laravel (dentro do container)
 docker-compose exec app bash
 php artisan key:generate
 php artisan jwt:secret
@@ -61,23 +104,27 @@ Se preferir rodar sem Docker:
 #### Backend (API Laravel)
 
 ```bash
-# 1. Instale dependências
+# 1. Entre no diretório do backend
+cd ms-orders
+
+# 2. Instale dependências
 composer install
 
-# 2. Configure .env
+# 3. Configure .env
 cp .env.example .env
 php artisan key:generate
 php artisan jwt:secret
 
-# 3. Configure banco de dados (ajuste .env para MySQL local)
+# 4. Configure banco de dados (ajuste .env para MySQL local)
 php artisan migrate
 php artisan db:seed
 
-# 4. Inicie servidor
+# 5. Inicie servidor
 php artisan serve
 # API disponível em http://localhost:8000
 
-# 5. Em outro terminal, rode o worker de fila
+# 6. Em outro terminal, rode o worker de fila
+cd ms-orders
 php artisan queue:work
 ```
 
@@ -106,17 +153,29 @@ npm run dev
 **Credenciais para teste (após seed):**
 - **Admin:** admin@onfly.com / password
 - **User:** user@onfly.com / password
-## Rodando Testes
 
-- **No container:**
+## 🧪 Rodando Testes
+
+### Backend (Laravel)
+
+- **No container Docker:**
   ```bash
   docker-compose exec app php artisan test
   ```
-- **Local:**
+  
+- **Local (sem Docker):**
   ```bash
+  cd ms-orders
   php artisan test
   ```
-  (usa SQLite em memória, via `.env.testing`)
+  (usa SQLite em memória, via `ms-orders/.env.testing`)
+
+### Frontend (Vue)
+
+```bash
+cd mfe-orders
+npm run test
+```
 
 ## 🎨 Arquitetura Frontend (mfe-orders)
 
@@ -151,6 +210,8 @@ O frontend está totalmente integrado com o backend Laravel:
 | Logout | `POST /auth/logout` | authStore.logout() | Invalida token no backend |
 
 ## Exemplos de Uso da API
+
+Os seguintes exemplos usam a API backend (`ms-orders`) exposta via Nginx na porta 8000:
 
 **Registrar:**
 ```bash
@@ -213,11 +274,19 @@ curl -X GET http://localhost:8000/api/auth/user \
 
 ## Estrutura e Tecnologias
 
+**Backend (`ms-orders/`):**
 - **Arquitetura:** Controllers finos, Service Layer, Policies, Form Requests, Resources, Notificações assíncronas
 - **Stack:** Laravel 12, PHP 8.5, MySQL 8, JWT, Docker, Nginx
 - **Testes:** 38 automatizados (unitários e feature, SQLite em memória)
 - **Fila:** Worker dedicado, notificações por email e database
 - **Segurança:** JWT, CORS, validação em múltiplas camadas
+
+**Frontend (`mfe-orders/`):**
+- **Framework:** Vue 3 com Composition API
+- **Build Tool:** Vite
+- **State Management:** Pinia
+- **HTTP Client:** Axios com interceptors JWT
+- **UI/UX:** Vue Toastification, Vue Router com guards
 
 ## Regras de Negócio
 - Usuário comum só vê/edita seus pedidos, admin vê todos
@@ -246,15 +315,32 @@ Sempre que o status de um pedido é alterado (ex: de "aguardando" para "confirma
 
 ## Estrutura dos Containers Docker
 
-O sistema é dividido em múltiplos containers para garantir isolamento, escalabilidade e facilidade de manutenção:
+O sistema é dividido em múltiplos containers (configurados em `docker-compose.yml` na raiz do monorepo):
 
-- **app:** Container principal, executa a aplicação Laravel (API, comandos artisan, migrations, etc). Responsável por servir a aplicação PHP.
-- **worker:** Executa o comando de worker de fila do Laravel (`php artisan queue:work`). Processa tarefas assíncronas, como envio de notificações, sem impactar o tempo de resposta da API. Permite escalar horizontalmente apenas o processamento de filas, se necessário.
-- **nginx:** Servidor web reverso, responsável por receber as requisições HTTP e repassá-las para o container `app`. Garante performance, segurança e serve arquivos estáticos.
-- **db:** Banco de dados MySQL, armazena dados da aplicação, pedidos, usuários e notificações.
+- **frontend:** Container Vue 3 com Vite dev server (porta 5173). Código em `mfe-orders/`.
+- **app:** Container principal Laravel, executa a aplicação (API, comandos artisan, migrations). Código em `ms-orders/`.
+- **worker:** Executa o worker de fila do Laravel (`php artisan queue:work`). Processa tarefas assíncronas como envio de notificações, sem impactar o tempo de resposta da API.
+- **nginx:** Servidor web reverso para o backend, recebe requisições HTTP e repassa para o container `app`. Serve a API na porta 8000.
+- **db:** Banco de dados MySQL 8.0, armazena dados da aplicação.
 
 **Por que essa divisão?**
 
 - Permite escalar cada parte de forma independente (ex: mais workers para alta demanda de notificações).
-- Isola responsabilidades: web, processamento assíncrono, banco e aplicação ficam separados, facilitando debug, deploy e manutenção.
+- Isola responsabilidades: web, processamento assíncrono, banco e aplicação ficam separados.
 - Segue boas práticas de arquitetura de microsserviços e conteinerização.
+
+## 📝 Notas sobre o Monorepo
+
+Este projeto usa uma estrutura de monorepo para facilitar o desenvolvimento integrado de frontend e backend:
+
+- **Vantagens:**
+  - Versionamento sincronizado de frontend e backend
+  - Facilita refatorações que afetam ambos os projetos
+  - Deploy simplificado com Docker Compose único
+  - Documentação centralizada
+
+- **Configurações específicas:**
+  - `.gitignore` na raiz: apenas regras globais (OS, IDE)
+  - `.gitignore` em cada projeto: regras específicas (node_modules, vendor)
+  - `.editorconfig` na raiz: configuração unificada (2 espaços para JS/Vue, 4 para PHP)
+  - `docker-compose.yml` na raiz: orquestra todos os serviços
